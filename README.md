@@ -1,24 +1,38 @@
-# gurmen_task_web
+Sipariş Takip Sistemi - Frontend
 
-## Project setup
-```
-npm install
-```
+Bu proje, Vue.js kullanılarak geliştirilmiş bir sipariş takip sistemi frontend uygulamasıdır.
+Uygulama, kullanıcıların siparişleri yönetmesine, yeni siparişler oluşturmasına ve mevcut siparişleri görüntülemesine olanak tanır.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Kurulum
 
-### Compiles and minifies for production
-```
-npm run build
-```
+git clone https://github.com/fdemirag/gurmen_task_web.git   
 
-### Lints and fixes files
-```
-npm run lint
-```
+cd gurmen_task_web
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+npm install  //bağımlılıkları yükler
+
+npm run serve //projeyi çalıştırır
+
+Bu frontend, .NET Core 6 ile geliştirilmiş bir backend API ile iletişim kurar. API bağlantı noktalarını environment.js dosyasında yapılandırabilirsiniz.
+
+API_BASE_URL: "http://localhost:5092/api"  örnek olarak bu şekilde
+
+API Kullanımı
+
+Siparişleri Listeleme: GET /orders
+
+Sipariş Detayı Görüntüleme: GET /orders/{id}
+
+Yeni Sipariş Ekleme: POST /orders
+
+Sipariş Güncelleme: PUT /orders/{id}
+
+Sipariş Silme: DELETE /orders/{id}
+
+Kullanılan Teknolojiler
+
+-Vue 3
+
+-Vue Router
+
+-Axios (API istekleri için)
