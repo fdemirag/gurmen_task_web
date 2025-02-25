@@ -3,6 +3,7 @@ import ENV from "@/config/environment";
 
 const API_URL = `${ENV.API_BASE_URL}/campaigns`;
 
+// Tüm kampanyaları getir
 export const getAllCampaigns = async () => {
   try {
     const response = await axios.get(API_URL);
@@ -13,6 +14,18 @@ export const getAllCampaigns = async () => {
   }
 };
 
+// Yeni bir kampanya ekle
+export const addCampaign = async (campaign) => {
+  try {
+    const response = await axios.post(API_URL, campaign);
+    return response.data;
+  } catch (error) {
+    console.error("Kampanya eklenirken hata oluştu:", error);
+    return null;
+  }
+};
+
+// Siparişe indirim uygula
 export const applyDiscountToOrder = async (orderId, totalAmount) => {
   try {
     const response = await axios.post(`${API_URL}/apply/${orderId}`, null, {
@@ -25,7 +38,9 @@ export const applyDiscountToOrder = async (orderId, totalAmount) => {
   }
 };
 
+// Tüm servis fonksiyonlarını dışa aktar
 export default {
   getAllCampaigns,
+  addCampaign, 
   applyDiscountToOrder
 };

@@ -4,6 +4,9 @@
       <router-link to="/customers" active-class="active-link">Müşteriler</router-link>
       <router-link to="/products" active-class="active-link">Ürünler</router-link>
       <router-link to="/orders" active-class="active-link">Siparişler</router-link>
+      <router-link to="/giveanorder" active-class="active-link">Sipariş Ver</router-link>
+      <router-link to="/campaigns" active-class="active-link">Kampanyalar</router-link>
+      <router-link to="/leaderboard" active-class="active-link">En Fazla Sipariş Verenler</router-link>
     </nav>
     <router-view />
   </div>

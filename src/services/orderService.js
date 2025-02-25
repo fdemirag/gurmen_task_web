@@ -4,6 +4,7 @@ import ENV from "@/config/environment";
 const API_URL = `${ENV.API_BASE_URL}/orders`;
 
 export default {
+  // Tüm siparişleri al
   async getOrders() {
     try {
       const response = await axios.get(API_URL);
@@ -14,6 +15,7 @@ export default {
     }
   },
 
+  // Belirli bir siparişi ID ile al
   async getOrderById(orderId) {
     try {
       const response = await axios.get(`${API_URL}/${orderId}`);
@@ -24,6 +26,7 @@ export default {
     }
   },
 
+  // Yeni sipariş oluştur
   async createOrder(orderData) {
     try {
       const response = await axios.post(API_URL, orderData);
@@ -34,6 +37,7 @@ export default {
     }
   },
 
+  // Siparişi güncelle
   async updateOrder(orderId, orderData) {
     try {
       const response = await axios.put(`${API_URL}/${orderId}`, orderData);
@@ -44,11 +48,23 @@ export default {
     }
   },
 
+  // Siparişi sil
   async deleteOrder(orderId) {
     try {
       await axios.delete(`${API_URL}/${orderId}`);
     } catch (error) {
       console.error("Error deleting order:", error);
+      throw error;
+    }
+  },
+
+  // Son bir hafta içinde en çok sipariş veren 5 müşteriyi al
+  async getTopCustomersLastWeek() {
+    try {
+      const response = await axios.get(`${API_URL}/top-customers-last-week`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching top customers:", error);
       throw error;
     }
   }

@@ -1,54 +1,58 @@
 <template>
-    <div>
-      <h2 class="text-2xl font-bold mb-4">Yeni Sipariş Oluştur</h2>
-      <form @submit.prevent="createOrder" class="space-y-4">
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
+      <h2 class="text-3xl font-bold text-center mb-6">Yeni Sipariş Oluştur</h2>
+  
+      <form @submit.prevent="createOrder" class="space-y-6">
+        <!-- Müşteri Seçimi -->
         <div>
           <label for="customer" class="block text-sm font-medium">Müşteri Seç</label>
-          <select v-model="selectedCustomerId" id="customer" class="mt-1 block w-full border p-2 rounded">
+          <select v-model="selectedCustomerId" id="customer" class="mt-1 block w-full border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option v-for="customer in customers" :key="customer.id" :value="customer.id">
               {{ customer.name }}
             </option>
           </select>
         </div>
   
+        <!-- Ürün Seçimi -->
         <div>
           <label for="product" class="block text-sm font-medium">Ürün Seç</label>
-          <select v-model="selectedProductId" id="product" class="mt-1 block w-full border p-2 rounded">
+          <select v-model="selectedProductId" id="product" class="mt-1 block w-full border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option v-for="product in products" :key="product.id" :value="product.id">
               {{ product.name }} - {{ product.price }} TL
             </option>
           </select>
         </div>
   
+        <!-- Miktar Girişi -->
         <div>
           <label for="quantity" class="block text-sm font-medium">Miktar</label>
-          <input v-model.number="quantity" type="number" id="quantity" class="mt-1 block w-full border p-2 rounded" min="1" />
+          <input v-model.number="quantity" type="number" id="quantity" class="mt-1 block w-full border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" min="1" />
         </div>
   
-        <button type="button" @click="addToCart" class="bg-green-500 text-white px-4 py-2 rounded">Sepete Ekle</button>
+        <button type="button" @click="addToCart" class="w-full py-3 text-white bg-green-500 hover:bg-green-600 rounded-lg">Sepete Ekle</button>
       </form>
   
-      <div v-if="orderDetails.length" class="mt-4">
-        <h3 class="text-lg font-bold">Sepet</h3>
-        <ul class="border p-2 rounded">
-          <li v-for="(item, index) in orderDetails" :key="index" class="flex justify-between border-b py-2">
+      <div v-if="orderDetails.length" class="mt-8 bg-gray-50 p-4 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold mb-4">Sepetiniz</h3>
+        <ul class="space-y-3">
+          <li v-for="(item, index) in orderDetails" :key="index" class="flex justify-between items-center py-2 px-3 bg-white border rounded-lg shadow-sm">
             <span>{{ getProductName(item.productId) }} - {{ item.quantity }} adet</span>
             <span>{{ getProductPrice(item.productId, item.quantity) }} TL</span>
-            <button @click="removeFromCart(index)" class="text-red-500">Sil</button>
+            <button @click="removeFromCart(index)" class="text-red-500 hover:text-red-700 text-sm font-medium">Sil</button>
           </li>
         </ul>
-        <div class="mt-2 p-2 bg-gray-100 rounded">
-          <p class="font-bold">Toplam Tutar: {{ totalAmount }} TL</p>
-          <p v-if="appliedCampaign" class="text-green-500">
+        <div class="mt-4 bg-gray-100 p-4 rounded-lg">
+          <p class="font-semibold">Toplam Tutar: <span class="text-xl">{{ totalAmount }} TL</span></p>
+          <p v-if="appliedCampaign" class="text-green-600 font-semibold mt-2">
             Kampanya Uygulandı: {{ appliedCampaign.code }} - {{ appliedCampaign.discountRate * 100 }}% indirim
           </p>
-          <p v-if="appliedCampaign" class="text-red-500 font-bold">
+          <p v-if="appliedCampaign" class="text-red-500 font-bold mt-2">
             İndirimli Tutar: {{ discountedTotal }} TL
           </p>
         </div>
       </div>
   
-      <button v-if="orderDetails.length" @click="createOrder" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
+      <button v-if="orderDetails.length" @click="createOrder" class="w-full py-3 text-white bg-blue-500 hover:bg-blue-600 mt-8 rounded-lg">
         Siparişi Tamamla
       </button>
     </div>
@@ -161,10 +165,21 @@
           }
         } catch (error) {
           console.error("Sipariş oluşturulurken hata:", error);
-          alert('Sipariş oluşturulurken bir hata oluştu.');
+          if (error.response && error.response.data && error.response.data.message) {
+            alert(error.response.data.message);
+          } else {
+            alert('Sipariş oluşturulurken bir hata oluştu.');
+          }
         }
       }
     }
   };
   </script>
+  
+  <style scoped>
+  /* Genel stil ayarları */
+  button {
+    cursor: pointer;
+  }
+  </style>
   
