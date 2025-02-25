@@ -3,6 +3,7 @@
     <nav>
       <router-link to="/customers" active-class="active-link">Müşteriler</router-link>
       <router-link to="/products" active-class="active-link">Ürünler</router-link>
+      <router-link to="/orders" active-class="active-link">Siparişler</router-link>
     </nav>
     <router-view />
   </div>
